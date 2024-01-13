@@ -2,9 +2,12 @@ import json, os.path
 import datetime
 
 
+def aaaa(a, b):
+    return a / b
+
 def load_operations():
     """список всех операций"""
-    operations_json = os.path.join('src', 'operations.json')
+    operations_json = os.path.join('', 'operations.json')
     with open(operations_json, 'r', encoding="utf-8") as file:
         convert_js = json.load(file)
         return convert_js

@@ -15,3 +15,4 @@ for operation in operations:
         print(modify_card_to(operation))
         print(operation['operationAmount']['amount'], operation['operationAmount']['currency']['name'])
         print()
+print(operations)
