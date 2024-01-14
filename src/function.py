@@ -1,26 +1,17 @@
-import json, os.path
+import json
 import datetime
-
-
-def aaaa(a, b):
-    return a / b
 
 def load_operations():
     """список всех операций"""
-    operations_json = os.path.join('', 'operations.json')
-    with open(operations_json, 'r', encoding="utf-8") as file:
-        convert_js = json.load(file)
-        return convert_js
+    with open('operations.json', 'r', encoding="utf-8") as file:
+        return json.load(file)
 
 
-convert_js = load_operations()
-
-
-def last_operations():
+def last_operations(list_operations):
     """Вывод последних 5-ти операций"""
     list_convert_js = []
     counter = 0
-    for i in convert_js:
+    for i in list_operations:
         if i['state'] == 'EXECUTED':
             counter += 1
             list_convert_js.append(i)
@@ -30,6 +21,7 @@ def last_operations():
 
 
 def modify_date(operation):
+    """Форматирование даты"""
     data_list = operation['date']
     dt = datetime.datetime.fromisoformat(data_list)
     format_date = dt.date().strftime('%d.%m.%Y'), operation['description']
@@ -37,6 +29,7 @@ def modify_date(operation):
 
 
 def modify_card_to(operation):
+    """Скрытие номера счета/карты куда переводят"""
     card_show_to = operation['to']
     name_card_to = card_show_to.split()[0]
     card_to = operation['to'][-4:].rjust(len(operation['to'][-6:]), "*")
@@ -44,7 +37,9 @@ def modify_card_to(operation):
 
 
 def modify_card_from(operation):
+    """Скрытие номера счета/карты от куда переводят"""
     card = operation['from']
     card_number = card.split()[-1]
     name_card = card.split()[0]
     return f'{name_card} {card_number[:4]} {card_number[4:6]}** **** {card_number[-4:]}'
+
