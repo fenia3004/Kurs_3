@@ -6,13 +6,14 @@ all_operations = load_operations()
 # создание списка для дальнейшей работы
 list_operations = []
 for i in all_operations:
-    list_operations.append(i)
+    if i !={}:
+     list_operations.append(i)
+
+# Сортировка по дате
+list_operations.sort(key=lambda x: x.get('date'), reverse=True)
 
 # Вызов функции для выбора последних 5 чеков
 operations = last_operations(list_operations)
-
-# Сортировка по дате
-operations.sort(key=lambda x: x.get('date'), reverse=True)
 
 # Вывод всей полученной информации
 for operation in operations:
